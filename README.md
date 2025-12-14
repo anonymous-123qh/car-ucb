@@ -62,11 +62,11 @@ After successfully running the simulator, the data will be saved to the data_out
  ```
  python multiple_car_ucb_multiple_seed.py \
    --num-interfaces 2 \
-   --num-servers 3\
+   --num-servers 3
  ```
 3. Draw the plot result
 ```
-python herd_avoidance_analyse.py \
+python herd_avoidance_analyse.py 
 ```
 
   
