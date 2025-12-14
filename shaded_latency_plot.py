@@ -200,6 +200,9 @@ if __name__ == "__main__":
     K = NUM_INTERFACES * NUM_SERVERS
 
     args = parse_args()
+    # Override global configuration
+    NUM_INTERFACES = args.num_interfaces
+    NUM_SERVERS = args.num_servers
     print("=== Experiment Configuration ===")
     print(f"NUM_INTERFACES      = {NUM_INTERFACES}")
     print(f"NUM_SERVERS         = {NUM_SERVERS}")
