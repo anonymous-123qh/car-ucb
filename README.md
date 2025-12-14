@@ -10,7 +10,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<username>/<repository>.git
+   git clone [https://github.com/anonymous-123qh/car-ucb.git](https://github.com/anonymous-123qh/car-ucb.git)
    cd <car-ucb>
 2. Install packages:
    ```bash
