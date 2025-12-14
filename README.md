@@ -11,7 +11,7 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/anonymous-123qh/car-ucb.git
-   cd <car-ucb>
+   cd car-ucb
 2. Install packages:
    ```bash
     pip install -r requirements.txt
