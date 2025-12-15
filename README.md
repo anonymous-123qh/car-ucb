@@ -76,13 +76,19 @@ python herd_avoidance_analyse.py
 ```
 
 ## Ablation test with different congestion penalty
-1. Congestion penalty = 10, scale from left to right: K =6, 50, 200.
+1. Congestion penalty = 0, scale from left to right: K =6, 50, 200.
+<p align="center">
+  <img src="images/latency_cdf_k6_congestion0.png" width="30%" />
+  <img src="images/latency_cdf_k50_congestion0.png" width="30%" />
+  <img src="images/latency_cdf_k200_congestion0.png" width="30%" />
+</p>
+2. Congestion penalty = 10, scale from left to right: K =6, 50, 200.
 <p align="center">
   <img src="images/latency_cdf_k6_congestion10.png" width="30%" />
   <img src="images/latency_cdf_k50_congestion10.png" width="30%" />
   <img src="images/latency_cdf_k200_congestion10.png" width="30%" />
 </p>
-2. Congestion penalty = 20, scale from left to right: K =6, 50, 200.
+3. Congestion penalty = 20, scale from left to right: K =6, 50, 200.
 <p align="center">
   <img src="images/latency_cdf_k6_congestion20.png" width="30%" />
   <img src="images/latency_cdf_k50_congestion20.png" width="30%" />
