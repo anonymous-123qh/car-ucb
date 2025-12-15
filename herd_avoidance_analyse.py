@@ -5,7 +5,6 @@ import matplotlib
 matplotlib.use("TkAgg")  # comment out if not needed
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
-import argparse
 import os
 plt.rcParams.update({
     "font.size": 18,
@@ -39,7 +38,7 @@ def parse_latencies_json(lat_json_str):
 
 def choose_p_star_from_ftflood(df_env):
     """
-    Heuristic: choose path with lowest mean latency under FT-Flood as p*.
+    Choose path with lowest mean latency under FT-Flood as p*.
     Replace this with a fixed id (e.g., p_star = 0).
     """
     df_env = df_env.copy()
@@ -58,8 +57,7 @@ def choose_p_star_from_ftflood(df_env):
 
 def build_multi_agent_usage(raw_path, algo_names, trial_id=0, p_star=None, T_MAX=2000):
     """
-    Build data for 'herd avoidance' style plots:
-
+    Build data for herd avoidance style plots:
       - uses FT-Flood rows as environment ground truth
       - picks a single path p_star to track
       - for each algorithm in algo_names, records whether p_star is in its action at each t
@@ -73,10 +71,8 @@ def build_multi_agent_usage(raw_path, algo_names, trial_id=0, p_star=None, T_MAX
 
     env_t = df_env["t"].to_numpy()
 
-
     if p_star is None:
         p_star = choose_p_star_from_ftflood(df_env)
-
 
     lat_p_star = []
     for d in df_env["lat_dict"]:
@@ -85,16 +81,12 @@ def build_multi_agent_usage(raw_path, algo_names, trial_id=0, p_star=None, T_MAX
         lat_p_star.append(lat)
     lat_p_star = np.array(lat_p_star)
 
-
     T = min(T_MAX, len(env_t))
     t = env_t[:T]
     lat_p_star = lat_p_star[:T]
 
-
     algo_names = list(algo_names)
     usage_matrix = np.zeros((len(algo_names), T), dtype=int)
-
-
     df["action_list"] = df["action"].apply(parse_action)
     df_trial = df[df["trial_id"] == trial_id].copy()
 
@@ -623,29 +615,13 @@ def plot_latency_only(data, scenario_label="K = 50", T_MAX=2000, deadline=100):
     fig.savefig("plot/new_latency_shared.pdf", bbox_inches="tight")
     plt.show()
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Run multi-trial network path selection experiments"
-    )
-
-    parser.add_argument("--num-interfaces", type=int, default=NUM_INTERFACES,
-                        help="Number of network interfaces")
-    parser.add_argument("--num-servers", type=int, default=NUM_SERVERS,
-                        help="Number of servers")
-
-
-    return parser.parse_args()
-
-
 if __name__ == "__main__":
     NUM_INTERFACES =2
     NUM_SERVERS = 3
     os.makedirs("plot", exist_ok=True)
 
-    args = parse_args()
+
     #override global configuration
-    NUM_INTERFACES = args.num_interfaces
-    NUM_SERVERS = args.num_servers
     K = NUM_INTERFACES * NUM_SERVERS
     print("=== Experiment Configuration ===")
     print(f"NUM_INTERFACES      = {NUM_INTERFACES}")
