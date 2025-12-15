@@ -66,11 +66,9 @@ After successfully running the simulator, the data will be saved to the data_out
 ### Multiple-agent decision plot:
 1. Run the experiment with
  ```
- python multiple_car_ucb_multiple_seed.py \
-   --num-interfaces 2 \
-   --num-servers 3
+ python multiple_car_ucb_multiple_seed.py 
  ```
-3. Draw the plot result
+2. Draw the plot result
 ```
 python herd_avoidance_analyse.py 
 ```
