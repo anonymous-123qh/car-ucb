@@ -20,40 +20,37 @@ topK_ucb_action_counts = Counter()
 # ---------------------------------------------------------------------------
 
 # System scale
-NUM_INTERFACES =2      #conceptual (e.g., WiFi + 5G)5
+NUM_INTERFACES =2      #(e.g., WiFi + 5G)5
 NUM_SERVERS =  3 #number of cloud/edge servers15
-TOTAL_PATHS = NUM_INTERFACES * NUM_SERVERS  # path = interface–server pair
-CONGESTION_PENALTY = 30.0
+TOTAL_PATHS = NUM_INTERFACES * NUM_SERVERS  #path = interface–server pair
+CONGESTION_PENALTY = 30
 ENV_MODE = "dynamic"
-# Deadline and simulation length
-DEADLINE_TAU = 100.0      # ms (hard deadline)
+#Deadline and simulation length
+DEADLINE_TAU = 100.0      #ms (hard deadline)
 SIMULATION_STEPS = 5000   # number of decision
 
 # Experiment Settings
-NUM_TRIALS = 20         # Run 20 independent trials for statistics
+NUM_TRIALS = 20         #Run 20 independent trials for statistics
 
 # CAR-UCB parameters (from paper style)
-CAR_UCB_HISTORY_WINDOW = 100   # W
-CAR_UCB_LOCAL_K = 2            # k (top-k centers)
-CAR_UCB_GAMMA = 2           # gamma in ε_t schedule
+CAR_UCB_HISTORY_WINDOW = 100   #W
+CAR_UCB_LOCAL_K = 2            #k (top-k centers)
+CAR_UCB_GAMMA = 2           # gamma
 MAX_SUBSET_SIZE = 2
 
-# PLR parameters
+#PLR parameters
 PLR_RELIABILITY_TARGET = 0.90
 
-# FT parameters – replicate to N servers each request
-FT_NUM_REPLICAS = 2             # like FogROS2-FT experiments
+#FT parameters – replicate to N servers each request
+FT_NUM_REPLICAS = 2             #FogROS2-FT experiments
 
 
 
 #Environment: Trace-based Latency Generator
-
-
 class TraceEnvironment:
     """
     Simulates per-path latency traces with non-stationarity.
     """
-
     def __init__(self, num_paths, mode="dynamic"):
         self.num_paths = num_paths
         self.mode = mode
@@ -89,7 +86,7 @@ class TraceEnvironment:
             data = np.random.normal(base_mean, 10, T)
             if p % 2 == 0:
                 for burst_start in range(200, SIMULATION_STEPS, 300):
-                    data[burst_start:burst_start + 50] += 150
+                    data[burst_start:burst_start + 50] += 30
             traces[p] = data
         return traces
 
@@ -139,7 +136,7 @@ class TraceEnvironment:
                 ptr = self.pointers[agent_name][p]
                 latencies[p] = trace[ptr]
 
-            # Congestion Penalty
+            #Congestion Penalty
             iface_counts = {}
             for p in action:
                 iface = p // NUM_SERVERS
